@@ -1,0 +1,8 @@
+extends layouts/layout.pug
+
+block content
+  .navBarContainer
+      form(method="post" action="/logout")
+          input(type="submit" value="Logout").redirect-btn
+  h1 Confirmation
+  p we sent a confirmation email to your email, please confirm your account

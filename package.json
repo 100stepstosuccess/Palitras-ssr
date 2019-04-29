@@ -1,0 +1,28 @@
+{
+  "name": "picture",
+  "version": "1.0.0",
+  "description": "it's my learning project",
+  "main": "app.js",
+  "dependencies": {
+    "@hapi/boom": "^7.4.2",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "joi": "^14.3.1",
+    "mongoose": "^5.5.2",
+    "morgan": "^1.9.1",
+    "nodemailer": "^6.1.1",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "Andrew",
+  "license": "ISC"
+}

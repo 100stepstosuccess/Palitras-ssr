@@ -1,0 +1,14 @@
+extends layouts/layout.pug
+
+block content
+  .navBarContainer
+    h1 Welcome!
+    if userId
+      a(href="/home").link Home
+      form(method="post" action="/logout")
+        input(type="submit" value="Logout").redirect-btn
+    else
+      a(href="/login").link Login
+      a(href="/sign-up").link Sign up
+
+

@@ -1,0 +1,9 @@
+extends layouts/layout.pug
+
+block content
+    .navBarContainer
+        +redirectButton("Sign up", "/sign-up")
+    +form-box("Log in", true)
+    .redirect
+        p Don't have an account yet?
+        a(href="/sign-up").link Sign up now!
