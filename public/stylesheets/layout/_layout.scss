@@ -1,0 +1,20 @@
+.nav {
+  @include size(100%, 40px);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 1rem;
+  background: $additional-color;
+  box-shadow: 0px 1px 1px darken($additional-color, 20%);
+  a,
+  input {
+    margin: 0 rem(10);
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  max-width: 960px;
+  margin: 0 auto;
+}

@@ -46,7 +46,7 @@ exports.auth = wrapAsync(async (req, res) => {
 
     if (result) {
       req.session.userId = user._id;
-      res.redirect("/home");
+      res.json("/home");
     } else {
       // client message
       // res.redirect("/login");

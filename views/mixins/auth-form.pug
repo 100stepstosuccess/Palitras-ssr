@@ -1,0 +1,20 @@
+mixin auth-form(title, login, reset) 
+  .wrapper
+    .authForm
+      .left
+        h2= title
+        if login
+          .box
+            p Having trouble signing in? 
+              a(href="/forgot-password").link reset your password.
+      .right
+        .spinner
+        form(method="POST")
+          .email-box
+            input(type="email" name="email" required).email
+            label(for="email").email-label email
+          if !reset
+            .password-box
+              input(type="password" name="password" required).password
+              label(for="password").password-label password
+          input(type="submit" value= title).btn

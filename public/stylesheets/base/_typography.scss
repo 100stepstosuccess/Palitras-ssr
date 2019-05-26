@@ -1,0 +1,17 @@
+h1,
+p,
+a {
+  font-size: rem(16);
+  font-weight: normal;
+}
+
+.link {
+  font-size: rem(14);
+  color: $accent-color;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    color: darken($accent-color, 30%);
+  }
+}

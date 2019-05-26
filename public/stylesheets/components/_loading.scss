@@ -1,0 +1,8 @@
+.spinner {
+  @include size(rem(23));
+  display: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: $default-color;
+  border-radius: 50%;
+  animation: 0.9s spin infinite;
+}

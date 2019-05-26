@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-require("../config/config");
+require("../config/base");
 
 const from = '"productivity" <info@productivity.com>';
 

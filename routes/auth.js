@@ -10,7 +10,7 @@ const findUser = require("../middlewares/findUser");
 authRouter
   .route("/sign-up")
   .get(redirectHome, (req, res) => {
-    res.render("signUp");
+    res.render("sign-up");
   })
   .post(redirectHome, checkUser, authController.createUser);
 

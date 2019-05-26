@@ -1,25 +1,30 @@
-//Module dependencies.
 const express = require("express");
-const mongoose = require("mongoose");
+const path = require("path");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const session = require("express-session");
-const boom = require("@hapi/boom");
-
-require("dotenv").config();
-require("./config/config");
+const sassMiddleware = require("node-sass-middleware");
+const viewEngineSetup = require("./config/view_engine-setup");
 const sessionConfig = require("./config/sessionConfig");
 const index = require("./routes/index");
 const app = express();
 
-//sets
-app.set("view engine", "pug");
+viewEngineSetup(app);
 
-// middleware
+app.use(
+  sassMiddleware({
+    src: path.join(__dirname, "dev"),
+    dest: path.join(__dirname, "public"),
+    indentedSyntax: false,
+    sourceMap: false
+  })
+);
+
 app.use(logger("dev"));
 app.use(session(sessionConfig));
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use("/", index);
 
 app.use((req, res) => {
@@ -34,13 +39,4 @@ app.use((err, req, res, next) => {
   return res.status(err.output.statusCode).json(err.output.payload);
 });
 
-//DB
-mongoose
-  .connect(DB_URL, { useNewUrlParser: true, autoIndex: !IN_PROD })
-  .then(() => console.log("Database is successfully connected"))
-  .catch(() => next(boom.serverUnavailable()));
-
-//server
-app.listen(PORT, () => console.log(`server runs on ${HOST}`));
-
-// TODO: нужно добавить отсылку сообщений для верефикации пользователя
+module.exports = app;

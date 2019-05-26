@@ -1,4 +1,4 @@
-include ../mixins/form-box.pug
+include ../mixins/auth-form.pug
 
 doctype html
 html(lang="en")
@@ -6,9 +6,10 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    link(rel="stylesheet", href="/reset.css")
-    link(rel="stylesheet", href="/main.css")
     title Picture
+    link(rel="stylesheet", href="main.css")
   body
-    block content
-    
+    .bg-gradient
+      include ../modules/header.pug
+      block content
+    script(src="main-bundle.js")
