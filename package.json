@@ -2,13 +2,13 @@
   "name": "picture",
   "version": "1.0.0",
   "description": "it's my learning project",
-  "main": "server.js",
+  "main": "app.js",
   "dependencies": {
     "@hapi/boom": "^7.4.2",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "connect-mongo": "^2.0.3",
-    "dotenv": "^7.0.0",
+    "cross-env": "^5.2.0",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
     "joi": "^14.3.1",
@@ -28,8 +28,10 @@
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^2.1.1",
     "css-mqpacker": "^7.0.0",
+    "dotenv": "^7.0.0",
     "file-loader": "^3.0.1",
     "image-webpack-loader": "^4.6.0",
+    "jest": "^24.8.0",
     "mini-css-extract-plugin": "^0.6.0",
     "nodemon": "^1.18.11",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
@@ -43,8 +45,10 @@
     "webpack-hot-middleware": "^2.25.0"
   },
   "scripts": {
-    "start": "nodemon server.js",
-    "build": "webpack --config ./config/webpack/webpack-prod.js"
+    "dev": "nodemon -r dotenv/config app.js",
+    "start": "nodemon app.js",
+    "build": "webpack --config ./config/webpack/webpack-prod.js",
+    "prod": "cross-env NODE_ENV=production nodemon -r dotenv/config app.js"
   },
   "author": "Andrew",
   "license": "ISC"

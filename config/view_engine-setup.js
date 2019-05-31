@@ -9,13 +9,11 @@ module.exports = function viewEngineSetup(app) {
   if (!IN_PROD) {
     console.log("now running development");
 
-    console.log(root_config.configPath);
     const webpack = require("webpack");
     const config = require(path.join(
       root_config.configPath,
       "/webpack/webpack-dev.js"
     ));
-    console.log(config);
     const compiler = webpack(config);
 
     const webpackDevMiddleware = require("webpack-dev-middleware")(

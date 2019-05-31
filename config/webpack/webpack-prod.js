@@ -81,7 +81,7 @@ module.exports = {
   entry: path.join(rootConfig.clientPath, "app.js"),
   mode: "production",
   output: {
-    filename: "javascripts/[name]-bundle.js",
+    filename: "[name]-bundle.js",
     path: rootConfig.distPath,
     publicPath: "/"
   },
@@ -93,7 +93,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "stylesheets/[name].css"
+      filename: "[name].css"
     }),
     new CleanWebpackPlugin()
   ]
