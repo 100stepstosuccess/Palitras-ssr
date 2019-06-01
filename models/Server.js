@@ -14,15 +14,15 @@ class Server {
     this.db.push(database);
   }
 
+  start(app) {
+    this._connectDatabase();
+    app.listen(this.port, () => console.log(`server runs on ${this.host}`));
+  }
+
   _connectDatabase() {
     this.db.forEach(database => {
       database.connect();
     });
-  }
-
-  start(app) {
-    this._connectDatabase();
-    app.listen(this.port, () => console.log(`server runs on ${this.host}`));
   }
 }
 

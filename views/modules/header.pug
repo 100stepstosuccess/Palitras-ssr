@@ -1,11 +1,9 @@
--var userId = false
-
 header
   nav.nav
     if userId
-      a(href="/home").nav__link.link Home
-      form(method="post" action="/logout").nav__logout
-        input(type="submit" value="Logout").nav__input.btn
+      a(href="/home").link Home
+      form(method="post" action="/logout")
+        input(type="submit" value="Logout").btn
     else
-      a(href="/login").nav__login.btn Login
-      a(href="/sign-up").nav__sign-up.btn Sign up
+      a(href="/login").btn Login
+      a(href="/sign-up").btn Sign up

@@ -6,14 +6,14 @@ const logger = require("morgan");
 const session = require("express-session");
 const sassMiddleware = require("node-sass-middleware");
 
-const viewEngineSetup = require("./config/view_engine-setup");
+const viewEngineSetup = require("./config/viewEngineSetup");
 const sessionConfig = require("./config/sessionConfig");
-const { mongoDB } = require("./config/dbConf");
+const { mongoDB } = require("./config/dbConfig");
+require("./config/base");
 
 const index = require("./routes/index");
 const app = express();
 const server = require("./models/Server");
-require("./config/base");
 viewEngineSetup(app);
 
 if (IN_PROD) {
@@ -49,11 +49,14 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(err);
-  if (err.isServer) {
-    console.log(err.stack);
-  } // change all
-  return res.status(err.output.statusCode).json(err.output.payload);
+  console.error(err.message);
+  if (!err.statusCode) err.statusCode = 500;
+
+  if (err.shouldRedirect) {
+    res.render("myErrorPage");
+  } else {
+    res.status(err.statusCode).json(err.message);
+  }
 });
 
 server.addDatabase(mongoDB);

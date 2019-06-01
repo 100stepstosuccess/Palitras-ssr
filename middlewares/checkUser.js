@@ -1,13 +1,16 @@
 const Joi = require("joi");
 const userValidation = require("../models/validationSchemas/userValidation");
-const boom = require("@hapi/boom");
 
 const validateUser = (data, schema, res, next) => {
   Joi.validate(data, schema, err => {
     if (err) {
       // client message
       res.locals.isValid = false;
-      next(boom.badData("email and password must correspond with the schema"));
+      const err = new Error(
+        "email and password must correspond with the schema"
+      );
+      err.statusCode = 422;
+      next(err);
     } else res.locals.isValid = true;
   });
 };

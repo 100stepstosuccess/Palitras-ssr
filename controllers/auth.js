@@ -1,9 +1,8 @@
 const bcrypt = require("bcrypt");
-const boom = require("@hapi/boom");
 const User = require("../models/User");
 const Token = require("../models/Token");
 const wrapAsync = require("../middlewares/wrapAsync");
-const mailer = require("../helpers/mailer");
+const mailer = require("../models/Mailer");
 
 exports.createUser = wrapAsync(async (req, res) => {
   const { email, password } = req.body;
@@ -22,13 +21,19 @@ exports.createUser = wrapAsync(async (req, res) => {
       if (err) {
         throw err;
       } else {
-        mailer.sendConfirmationEmail(user, token);
+        mailer
+          .sendConfirmation(user, token)
+          .catch(() =>
+            res.json("it can not send email rigth now, please try later")
+          );
       }
     });
 
     res.redirect("/confirmation");
   } catch (err) {
-    throw boom.badData("such email has already used");
+    const error = new Error("such email has already used");
+    error.statusCode = 422;
+    throw error;
     // client message
     // res.redirect("/sign-up");
   }
@@ -39,18 +44,23 @@ exports.auth = wrapAsync(async (req, res) => {
   const { user } = res.locals;
 
   if (!user) {
-    throw boom.badData("such user doesnt exist");
+    const err = new Error("such user doesnt exist");
+    err.statusCode = 422;
+    throw err;
     // res.redirect("/login");
   } else {
     const result = await bcrypt.compare(password, user.hash);
 
     if (result) {
       req.session.userId = user._id;
-      res.json("/home");
+      // res.json("/home");
+      res.redirect("/home");
     } else {
       // client message
       // res.redirect("/login");
-      throw boom.badData("wrong email or password");
+      const err = new Error("wrong email or password");
+      err.statusCode = 422;
+      throw err;
     }
   }
 });
@@ -72,10 +82,13 @@ exports.verify = wrapAsync(async (req, res, next) => {
   try {
     foundToken = await Token.findOne({ token }).exec();
 
-    if (!foundToken)
-      throw boom.badRequest(
+    if (!foundToken) {
+      const err = new Error(
         "We were unable to find a valid token. Your token my have expired."
       );
+      err.statusCode = 400;
+      throw err;
+    }
   } catch (err) {
     throw err;
   }
@@ -83,16 +96,22 @@ exports.verify = wrapAsync(async (req, res, next) => {
   // If we found a token, find a matching user
   try {
     const foundUser = await User.findOne({ _id: foundToken._userId }).exec();
-    if (!foundUser)
-      throw boom.badRequest("We were unable to find a user for this token.");
-    if (foundUser.isVerified)
-      throw boom.badRequest("This user has already been verified.");
-
+    if (!foundUser) {
+      const err = new Error("We were unable to find a user for this token.");
+      err.statusCode = 400;
+      throw err;
+    }
+    if (foundUser.isVerified) {
+      const err = new Error("This user has already been verified.");
+      err.statusCode = 400;
+      throw err;
+    }
     // Verify and save the user
     foundUser.isVerified = true;
     foundUser.save(err => {
       if (err) throw err;
-      res.status(200).send("user successfully verified"); // client message
+      res.redirect("/home");
+      // res.status(200).send("user successfully verified"); // client message
     });
   } catch (err) {
     throw err;

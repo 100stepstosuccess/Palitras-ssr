@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const boom = require("@hapi/boom");
 
 exports.byEmail = (req, res, next) => {
   const { email } = req.body;
@@ -8,7 +7,9 @@ exports.byEmail = (req, res, next) => {
     if (err) {
       res.locals.user = false;
       // client message
-      next(boom.badData("such user doesnt exist"));
+      const error = new Error("such user doesnt exist");
+      error.statusCode = 422;
+      next(error);
     } else {
       res.locals.user = user;
       next();
@@ -21,7 +22,9 @@ exports.byId = (req, res, next) => {
 
   User.findOne({ _id: userId }, (err, user) => {
     if (err) {
-      next(boom.badData("such user doesnt exist"));
+      const error = new Error("such user doesnt exist");
+      error.statusCode = 422;
+      next(error);
       // client message
     } else {
       res.locals.user = user;

@@ -1,8 +1,12 @@
 const express = require("express");
 const appRouter = express.Router();
-const redirectLogin = require("../middlewares/redirectLogin");
-const findUser = require("../middlewares/findUser");
-const redirectToConfirm = require("../middlewares/redirectToConfirm");
+
+const {
+  findUser,
+  redirectLogin,
+  redirectToConfirm
+} = require("../middlewares/index");
+
 const auth = require("./auth");
 
 appRouter.get("/", findUser.byId, redirectToConfirm, (req, res) => {
@@ -16,7 +20,11 @@ appRouter.get(
   findUser.byId,
   redirectToConfirm,
   (req, res) => {
-    res.render("home", { email: res.locals.user.email, path: req.path });
+    const { userId } = req.session;
+    res.render("home", {
+      userId,
+      email: res.locals.user.email
+    });
   }
 );
 

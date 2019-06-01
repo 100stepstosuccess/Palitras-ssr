@@ -2,10 +2,13 @@ const express = require("express");
 const authRouter = express.Router();
 
 const authController = require("../controllers/auth");
-const redirectHome = require("../middlewares/redirectHome");
-const redirectLogin = require("../middlewares/redirectLogin");
-const checkUser = require("../middlewares/checkUser");
-const findUser = require("../middlewares/findUser");
+
+const {
+  checkUser,
+  findUser,
+  redirectLogin,
+  redirectHome
+} = require("../middlewares/index");
 
 authRouter
   .route("/sign-up")
@@ -31,7 +34,7 @@ authRouter.get("/confirmation", redirectLogin, findUser.byId, (req, res) => {
   if (res.locals.user.isVerified) {
     res.redirect("/home");
   } else {
-    res.render("confirmation");
+    res.render("confirmation", { email: res.locals.user.email });
   }
 });
 
