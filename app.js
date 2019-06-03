@@ -11,6 +11,7 @@ const sessionConfig = require("./config/sessionConfig");
 const { mongoDB } = require("./config/dbConfig");
 require("./config/base");
 
+const createError = require("./utils/createError");
 const index = require("./routes/index");
 const app = express();
 const server = require("./models/Server");
@@ -43,17 +44,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/", index);
 
-app.use((req, res) => {
-  res.status(404).send("Sorry can't find that!");
-  // pug errors
+app.use((req, res, next) => {
+  const err = createError(
+    404,
+    `Sorry, we can't find the "${req.url}" path!`,
+    true
+  );
+  next(err);
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.message);
-  if (!err.statusCode) err.statusCode = 500;
+  if (!IN_PROD) console.error(err.message);
+
+  if (!err.statusCode) {
+    err.statusCode = 500;
+    err.message = "internal server error";
+    err.shouldRedirect = true;
+  }
 
   if (err.shouldRedirect) {
-    res.render("myErrorPage");
+    res.render("error", { statusCode: err.statusCode, message: err.message });
   } else {
     res.status(err.statusCode).json(err.message);
   }

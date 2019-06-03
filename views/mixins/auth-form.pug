@@ -10,6 +10,7 @@ mixin auth-form(title, login, reset)
       .right
         .spinner
         form(method="POST")
+          .err-message
           .email-box
             input(type="email" name="email" required).email
             label(for="email").email-label email

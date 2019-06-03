@@ -32,7 +32,7 @@ class UserClass {
   generateToken() {
     return new Token({
       _userId: this._id,
-      token: crypto.randomBytes(16).toString("hex")
+      value: crypto.randomBytes(16).toString("hex")
     });
   }
 }

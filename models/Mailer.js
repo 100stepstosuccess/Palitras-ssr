@@ -13,7 +13,7 @@ class Mailer {
       to: user.email,
       subject: "Welcome to Productivity",
       html: `<p>Welcome to Productivity, please confirm your email</p>
-      <a href=${user.generateConfirmationUrl(token.token)}>Confirm</a>
+      <a href=${user.generateConfirmationUrl(token.value)}>Confirm</a>
       `
     };
 

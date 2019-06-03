@@ -22,7 +22,7 @@ authRouter
   .get(redirectHome, (req, res) => {
     res.render("login");
   })
-  .post(redirectHome, checkUser, findUser.byEmail, authController.auth);
+  .post(redirectHome, findUser.byEmail, authController.auth);
 
 authRouter.get("/forgot-password", redirectHome, (req, res) => {
   res.render("forgotPassword");
@@ -31,10 +31,12 @@ authRouter.get("/forgot-password", redirectHome, (req, res) => {
 authRouter.post("/logout", redirectLogin, authController.logout);
 
 authRouter.get("/confirmation", redirectLogin, findUser.byId, (req, res) => {
+  const { userId } = req.session;
+
   if (res.locals.user.isVerified) {
     res.redirect("/home");
   } else {
-    res.render("confirmation", { email: res.locals.user.email });
+    res.render("confirmation", { userId, email: res.locals.user.email });
   }
 });
 

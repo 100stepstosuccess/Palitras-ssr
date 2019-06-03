@@ -6,7 +6,7 @@ const tokenSchema = new mongoose.Schema({
     required: true,
     ref: "User"
   },
-  token: { type: String, required: true },
+  value: { type: String, required: true },
   createdAt: { type: Date, required: true, default: Date.now, expires: 43200 }
 });
 

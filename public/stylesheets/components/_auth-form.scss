@@ -121,5 +121,13 @@
       padding: rem(8);
       font-size: rem(18);
     }
+
+    .err-message {
+      color: $danger-color;
+      position: absolute;
+      align-self: center;
+      font-size: rem(14);
+      bottom: rem(60);
+    }
   }
 }
