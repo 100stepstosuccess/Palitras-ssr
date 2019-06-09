@@ -1,7 +1,10 @@
 const spinner = document.querySelector(".spinner");
 
-document.querySelector("div.right input.btn").addEventListener("click", e => {
+const submitBtn = document.querySelector("div.right input.btn");
+
+submitBtn.addEventListener("click", e => {
   e.preventDefault();
+  const val = e.target.value;
 
   const errMessage = document.querySelector("div.right .err-message");
   const rightForm = document.querySelector(".right form");
@@ -17,25 +20,26 @@ document.querySelector("div.right input.btn").addEventListener("click", e => {
   request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
   request.send(JSON.stringify(data));
   request.addEventListener("readystatechange", () => {
-    const message = request.response != "" ? JSON.parse(request.response) : {};
+    const data = request.response != "" ? JSON.parse(request.response) : {};
 
     if (request.readyState == 3) {
+      e.target.value = null;
       spinner.style.display = "block";
     }
     if (request.readyState == 4 && request.status == 200) {
-      spinner.style.display = "none";
-      window.location.replace(`${window.location.origin}/${message}`);
+      window.location.replace(`${window.location.origin}/${data.route}`);
     }
     if (request.readyState == 4 && request.status > 400) {
       setTimeout(() => {
+        e.target.value = val;
         spinner.style.display = "none";
       }, 1000);
 
       const p = document.createElement("p");
 
-      console.log(message);
+      console.log(data);
       p.className = "err-message";
-      p.textContent = message;
+      p.textContent = data.message;
       rightForm.appendChild(p);
     }
   });

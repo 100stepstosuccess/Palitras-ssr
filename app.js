@@ -44,28 +44,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/", index);
 
-app.use((req, res, next) => {
+app.use("*", (req, res, next) => {
   const err = createError(
     404,
-    `Sorry, we can't find the "${req.url}" path!`,
+    `Sorry, we can't find the "${req.baseUrl}" path!`,
     true
   );
   next(err);
 });
 
 app.use((err, req, res, next) => {
-  if (!IN_PROD) console.error(err.message);
+  if (!IN_PROD) console.error(err.message || err.data);
 
   if (!err.statusCode) {
     err.statusCode = 500;
-    err.message = "internal server error";
+    err.data.message = "internal server error";
     err.shouldRedirect = true;
   }
 
   if (err.shouldRedirect) {
-    res.render("error", { statusCode: err.statusCode, message: err.message });
+    res.render("message", {
+      statusCode: err.statusCode,
+      message: err.message
+    });
   } else {
-    res.status(err.statusCode).json(err.message);
+    res.status(err.statusCode).json(err.data);
   }
 });
 

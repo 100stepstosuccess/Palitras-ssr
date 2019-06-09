@@ -4,31 +4,38 @@ const authRouter = express.Router();
 const authController = require("../controllers/auth");
 
 const {
-  checkUser,
   findUser,
   redirectLogin,
   redirectHome
 } = require("../middlewares/index");
 
+authRouter.use(["/sign-up", "/login", "/forgot-password"], redirectHome);
+authRouter.use(["/logout"], redirectLogin);
+
 authRouter
   .route("/sign-up")
-  .get(redirectHome, (req, res) => {
+  .get((req, res) => {
     res.render("sign-up");
   })
-  .post(redirectHome, checkUser, authController.createUser);
+  .post(authController.createUser);
 
 authRouter
   .route("/login")
-  .get(redirectHome, (req, res) => {
+  .get((req, res) => {
     res.render("login");
   })
-  .post(redirectHome, findUser.byEmail, authController.auth);
+  .post(findUser.byEmail, authController.auth);
 
-authRouter.get("/forgot-password", redirectHome, (req, res) => {
+authRouter.route("/login/:some").get((req, res) => {
+  console.log(req.params.some);
+  res.render("login");
+});
+
+authRouter.get("/forgot-password", (req, res) => {
   res.render("forgotPassword");
 });
 
-authRouter.post("/logout", redirectLogin, authController.logout);
+authRouter.post("/logout", authController.logout);
 
 authRouter.get("/confirmation", redirectLogin, findUser.byId, (req, res) => {
   const { userId } = req.session;
@@ -40,7 +47,11 @@ authRouter.get("/confirmation", redirectLogin, findUser.byId, (req, res) => {
   }
 });
 
-authRouter.get("/confirmation/:token", authController.verify);
+authRouter
+  .route("/confirmation/:token")
+  .get((req, res) => {
+    res.render("verification");
+  })
+  .post(authController.verify);
 
 module.exports = authRouter;
-//use for all pages to confirm

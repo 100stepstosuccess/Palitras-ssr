@@ -4,16 +4,17 @@ require("../config/base");
 class Mailer {
   constructor(from) {
     this.transporter = this._setup();
-    this.from = '"productivity" <info@productivity.com>';
+    this.from = '"picture" <info@picture.com>';
   }
 
   sendConfirmation(user, token) {
     const email = {
       from: this.from,
       to: user.email,
-      subject: "Welcome to Productivity",
-      html: `<p>Welcome to Productivity, please confirm your email</p>
+      subject: "Welcome to Picture",
+      html: `<p>Welcome to Picture, please confirm your email</p>
       <a href=${user.generateConfirmationUrl(token.value)}>Confirm</a>
+      <a href="http://localhost:3000/confirmation">Confirm1</a>
       `
     };
 

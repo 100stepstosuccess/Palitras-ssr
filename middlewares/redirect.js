@@ -7,7 +7,9 @@ const redirectHome = (req, res, next) => {
 };
 
 const redirectLogin = (req, res, next) => {
-  if (!req.session.userId) {
+  const { userId } = req.session;
+
+  if (!userId) {
     res.status(401).redirect("/login");
   } else {
     next();
@@ -15,9 +17,7 @@ const redirectLogin = (req, res, next) => {
 };
 
 const redirectToConfirm = (req, res, next) => {
-  const { user } = res.locals;
-  if (!user) return next();
-  if (!user.isVerified) {
+  if (!res.locals.user.isVerified) {
     res.redirect("/confirmation");
   } else next();
 };
