@@ -1,0 +1,42 @@
+.image-list {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: rem(15);
+  justify-items: center;
+
+  .image-item {
+    width: 100%;
+    height: 100%;
+    background: rgb(109, 109, 109);
+    .image-info {
+      margin: 2npx 5px;
+    }
+    .image-name {
+      letter-spacing: 0.04em;
+    }
+    .author-name {
+      font-size: rem(10);
+      color: $second-font-color;
+    }
+  }
+
+  .image-wrapper {
+    width: 100%;
+    overflow: hidden;
+    background: #555;
+
+    .img {
+      width: 100%;
+      height: 100%;
+      transform: scale(1.2);
+      transition: all 0.5s;
+      opacity: 1;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.03);
+        opacity: 0.4;
+      }
+    }
+  }
+}

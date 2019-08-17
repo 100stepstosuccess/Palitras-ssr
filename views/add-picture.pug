@@ -1,0 +1,15 @@
+extends layouts/base.pug
+
+block content
+  .container.wrapper
+    form(action="/add-picture" method="post" enctype="multipart/form-data").picture-form
+      .input-group
+        input(type="text" name="name" required).form-control
+        label enter the name of the picture
+      .input-group
+        label.label-file choose picture 
+          input(type="file" name="picture" required).picture.form-control
+          i.material-icons add_photo_alternate
+      .image-wrapper
+        img.outputImage.img
+      input(type="submit" value="add").btn

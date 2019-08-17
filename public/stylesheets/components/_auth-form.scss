@@ -2,12 +2,12 @@
   display: flex;
   height: rem(360);
   width: rem(770);
-  background: $additional-color;
   border-radius: 5px;
   margin-top: rem(60);
   margin-left: 15px;
   margin-right: 15px;
   overflow: hidden;
+  background: $additional-color;
 
   @include respond(phone) {
     flex-grow: 1;
@@ -26,10 +26,10 @@
       justify-content: space-around;
     }
     .box {
-      text-align: center;
       flex-grow: 1;
       margin-left: 15px;
       margin-right: 15px;
+      text-align: center;
       @include respond(phone) {
         text-align: start;
       }
@@ -53,13 +53,13 @@
   }
 
   .right {
-    flex-basis: 60%;
-    background: $bg-color;
-    box-shadow: $bg-shadow;
-    position: relative;
     display: flex;
+    flex-basis: 60%;
+    position: relative;
     justify-content: center;
     align-items: center;
+    background: $bg-color;
+    box-shadow: $bg-shadow;
 
     .spinner {
       position: absolute;
@@ -111,6 +111,12 @@
     .email-box,
     .password-box {
       position: relative;
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        box-shadow: 0 0 0 30px $bg-color inset !important;
+      }
     }
 
     input[type="submit"] {
@@ -122,11 +128,9 @@
       font-size: rem(18);
     }
 
-    .err-message {
-      color: $danger-color;
+    .err {
       position: absolute;
       align-self: center;
-      font-size: rem(14);
       bottom: rem(60);
     }
   }

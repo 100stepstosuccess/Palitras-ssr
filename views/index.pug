@@ -1,8 +1,26 @@
 extends layouts/base.pug
 
 block content
-  .wrapper
+  -var imageData = imageArray
+  
+  .container.wrapper-column
     .search-box
       p Search pictures
       form
         input(type="text").search
+    .light-box.hide
+      .modal-control: i.material-icons.back arrow_back_ios
+      .modal
+        img.current-img
+        .menu
+          .menu-item: i.material-icons.close close    
+      .modal-control: i.material-icons.forward arrow_forward_ios
+    ul.image-list
+      each image in imageData
+        li.image-item
+          .image-wrapper
+            img(src = image.imagePath).img 
+          .image-info
+            p.image-name #{image.name}
+            p.author-name author:
+              i  #{image.author}

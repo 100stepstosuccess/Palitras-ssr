@@ -1,0 +1,50 @@
+.picture-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  background: rgb(108, 109, 110);
+  .btn {
+    margin: 10px 0;
+    width: 20%;
+  }
+
+  .input-group {
+    position: relative;
+    margin: 20px 0;
+
+    .form-control {
+      border-bottom: 1px solid $bg-color;
+      width: 70%;
+      height: 40px;
+      color: black;
+      & + label {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        font-size: rem(16);
+        color: $bg-color;
+        pointer-events: none;
+        transition: all 0.2s ease-out;
+      }
+
+      &:focus {
+        border-color: $accent-color;
+        transition: all 0.2s ease-out;
+      }
+
+      &:focus ~ label,
+      &:valid ~ label {
+        top: rem(-12);
+        font-size: rem(13);
+        color: $accent-color;
+      }
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        box-shadow: 0 0 0 30px white inset !important;
+      }
+    }
+  }
+}

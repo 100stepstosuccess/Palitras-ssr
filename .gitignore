@@ -3,3 +3,4 @@ access.log
 .env
 readme.txt
 /dist
+/public/uploads/

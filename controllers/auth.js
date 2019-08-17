@@ -1,5 +1,3 @@
-const User = require("../models/User");
-const Token = require("../models/Token");
 const wrapAsync = require("../middlewares/wrapAsync");
 const createError = require("../utils/createError");
 const userService = require("../services/userService");

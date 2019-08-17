@@ -8,9 +8,12 @@
 @import "base/typography";
 @import "base/reset";
 
+@import "layout/layout";
+
 @import "components/buttons";
 @import "components/loading";
 @import "components/auth-form";
+@import "components/picture-form";
 @import "components/search-input";
-
-@import "layout/layout";
+@import "components/image-list";
+@import "components/ligth-box";

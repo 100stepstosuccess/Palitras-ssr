@@ -1,10 +1,11 @@
 header
   nav.nav
-    a(href="/").link logo
-    if userId
-      a(href="/home").link Home
-      form(method="post" action="/logout")
-        input(type="submit" value="Logout").btn
-    else
-      a(href="/login").btn Login
-      a(href="/sign-up").btn Sign up
+      a(href="/").brand-logo.link logo
+      ul#nav-mobile.right.hide-on-med-and-down
+        if userId
+          li: a(href="/home").link Home
+          li: form(method="post" action="/logout")
+            input(type="submit" value="Logout").btn
+        else
+          li: a(href="/login").btn Login
+          li: a(href="/sign-up").btn Sign up

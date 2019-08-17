@@ -74,5 +74,3 @@ app.use((err, req, res, next) => {
 
 server.addDatabase(mongoDB);
 server.start(app);
-
-//загрузка без webpack?

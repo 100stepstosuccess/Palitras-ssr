@@ -16,12 +16,6 @@ html {
   }
 }
 
-img {
-  width: auto;
-  max-width: 100%;
-  height: auto !important;
-}
-
 input {
   outline: none;
   border: none;
@@ -32,13 +26,20 @@ input {
   height: 100vh;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  box-shadow: 0 0 0 30px $bg-color inset !important;
-}
-
 input:-webkit-autofill {
   -webkit-text-fill-color: $default-color !important;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+.hide {
+  display: none;
+}
+
+.err {
+  color: $danger-color;
+  font-size: rem(14);
 }

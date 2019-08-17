@@ -20,3 +20,21 @@
     );
   }
 }
+
+input[type="file"] {
+  display: none;
+}
+
+.label-file {
+  color: white;
+  height: rem(34);
+  width: rem(150);
+  cursor: pointer;
+  margin: 14px 0;
+  font-size: rem(13);
+  background: $accent-color;
+  border-radius: rem(5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
