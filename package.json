@@ -4,6 +4,7 @@
   "description": "it's my learning project",
   "main": "app.js",
   "dependencies": {
+    "animejs": "^3.1.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "connect-mongo": "^2.0.3",

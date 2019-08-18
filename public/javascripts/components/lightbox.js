@@ -2,48 +2,98 @@ const imgList = [...document.querySelectorAll(".image-list img")];
 const lightBox = document.querySelector(".light-box");
 const currentImg = document.querySelector(".light-box .current-img");
 const close = document.querySelector(".light-box .close");
-const back = document.querySelector(".back");
-const forward = document.querySelector(".forward");
+const modalControl = document.querySelectorAll(".light-box .modal-control");
+import anime from "animejs/lib/anime.es.js";
+console.log(modalControl);
 
 const state = {
-  current: 0
+  currentImg: {
+    index: 0,
+    src: null,
+    x: 0,
+    y: 0
+  }
 };
 
 imgList &&
   imgList.forEach((img, i, arr) => {
     img.addEventListener("click", e => {
       lightBox.classList.remove("hide");
-      currentImg.src = e.target.src;
       const index = arr.findIndex(image => e.target.src === image.src);
-      state.current = index;
-      console.log(index + " clicked.");
+      const imgData = {
+        x: e.clientX,
+        y: e.clientY,
+        src: e.target.src,
+        index
+      };
+
+      state.currentImg = { ...imgData };
+      renderImg();
     });
   });
 
+function renderImg() {
+  const { x, y, src } = state.currentImg;
+  currentImg.src = src;
+
+  anime({
+    targets: ".light-box",
+    duration: 250,
+    easing: "easeInOutQuad",
+    delay: 200,
+    scale: [0, 1],
+    top: [y, 0],
+    left: [x, 0]
+  });
+}
+
 close &&
-  close.addEventListener("click", () => {
-    lightBox.classList.add("hide");
+  close.addEventListener("click", e => {
+    let x = e.clientX;
+    let y = e.clientY;
+    anime({
+      targets: ".light-box",
+      duration: 250,
+      easing: "easeInOutQuad",
+      scale: 0,
+      left: x,
+      top: y,
+      complete: () => {
+        lightBox.classList.add("hide");
+      }
+    });
   });
 
-forward &&
-  forward.addEventListener("click", () => {
-    if (state.current <= imgList.length) {
-      state.current++;
-      changeCurrent();
-    }
-  });
+function toForward() {
+  if (state.currentImg.index <= imgList.length) {
+    state.currentImg.index++;
+    changeCurrent();
+  }
+}
 
-back &&
-  back.addEventListener("click", () => {
-    if (state.current !== 0) {
-      state.current--;
-      changeCurrent();
-    }
-  });
+function toBack() {
+  if (state.currentImg.index !== 0) {
+    state.currentImg.index--;
+    changeCurrent();
+  }
+}
 
 function changeCurrent() {
-  const { current } = state;
-  const image = imgList.find((elem, i) => current === i);
+  const { index } = state.currentImg;
+  const image = imgList.find((elem, i) => index === i);
   currentImg.src = image.src;
-  console.log(current);
 }
+
+modalControl.forEach((elem, i) => {
+  elem.addEventListener("mouseover", () => {
+    elem.firstChild.style.color = "#69efdf";
+  });
+  elem.addEventListener("mouseout", () => {
+    elem.firstChild.style.color = "black";
+  });
+  if (i == 0) {
+    elem.addEventListener("click", toBack);
+  } else {
+    elem.addEventListener("click", toForward);
+  }
+});
