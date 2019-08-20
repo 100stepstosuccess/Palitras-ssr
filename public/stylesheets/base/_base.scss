@@ -4,6 +4,7 @@ html {
   font-size: $main-font-size; // 1rem = 10px 10px/16px = 62.5%
   background: $default-color;
   color: $main-font-color;
+  user-select: none;
   height: 100%;
   @include respond(laptop) {
     font-size: 56.25%; // 1rem = 9px 9px/16px = 56.25%
@@ -36,7 +37,7 @@ img {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .err {
