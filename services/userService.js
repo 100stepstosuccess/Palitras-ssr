@@ -27,7 +27,9 @@ class userService {
   }
 
   saveUserWith(email, hash) {
-    return new User({ email, hash }).save();
+    const username = email.substring(0, email.lastIndexOf("@"));
+    console.log(username);
+    return new User({ email, hash, username }).save();
   }
 
   createTokenFor(user) {
@@ -84,6 +86,15 @@ class userService {
 
   async saveUser(user) {
     return await user.save();
+  }
+
+  async updateUser(data, user) {
+    for (let propName in data) {
+      user[propName] = data[propName];
+    }
+    console.log(user);
+
+    return await this.saveUser(user);
   }
 }
 

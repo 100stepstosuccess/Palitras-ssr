@@ -1,0 +1,101 @@
+.settings-form {
+  .settings {
+    display: flex;
+  }
+
+  h3 {
+    font-size: rem(24);
+  }
+
+  .personal-data,
+  .options {
+    display: flex;
+    flex-direction: column;
+    // background: rgb(252, 204, 204);
+    align-items: center;
+    flex-basis: 50%;
+    margin: rem(30);
+  }
+
+  .input-group {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    position: relative;
+    margin: rem(35);
+
+    .avatar {
+      background: lighten($primary-color, 20%);
+      text-align: center;
+      width: 70%;
+      border-radius: 5px;
+
+      & > i {
+        color: lighten($main-font-color, 20%);
+        font-size: rem(220);
+      }
+    }
+
+    select {
+      padding: rem(10);
+      width: 50%;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: rem(12);
+      font-size: rem(16);
+      border-radius: 2px;
+    }
+
+    label {
+      position: absolute;
+      text-transform: capitalize;
+      left: 0;
+      bottom: 45px;
+      font-size: rem(18);
+    }
+
+    .textarea-label {
+      bottom: 110px;
+    }
+
+    label.label-file {
+      background: lighten($main-font-color, 10%);
+      z-index: 1;
+      position: static;
+      color: white;
+      width: 100%;
+      text-align: center;
+      margin: 0;
+    }
+  }
+
+  .submit-btn {
+    width: 25%;
+    padding: rem(5);
+    font-size: 20px;
+    margin: 0 auto;
+  }
+
+  button {
+    border: none;
+    margin: 0 15px;
+    padding: rem(7);
+    font-size: (14);
+  }
+
+  .more {
+    margin: 15px 0;
+    position: relative;
+    p {
+      position: absolute;
+      left: 0;
+      bottom: rem(35);
+    }
+  }
+  .delete-btn {
+    background: lighten($danger-color, 20%);
+  }
+}

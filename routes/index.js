@@ -10,6 +10,7 @@ const {
 
 const auth = require("./auth");
 const picture = require("./picture");
+const settings = require("./settings");
 
 appRouter.use(["/", "/home", "/add-picture"], findUser.byId);
 
@@ -30,6 +31,7 @@ appRouter.get("/home", (req, res) => {
   res.render("home", { userId });
 });
 
-appRouter.use("/", auth, picture);
+appRouter.use("/", auth);
+appRouter.use("/account", picture, settings);
 
 module.exports = appRouter;

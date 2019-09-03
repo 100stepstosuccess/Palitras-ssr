@@ -14,6 +14,36 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    username: {
+      type: String
+    },
+    avatar: {
+      type: String
+    },
+    gender: {
+      type: String
+    },
+    firstname: {
+      type: String
+    },
+    lastname: {
+      type: String
+    },
+    dateOfTheBirth: {
+      type: Date
+    },
+    city: {
+      type: String
+    },
+    country: {
+      type: String
+    },
+    about: {
+      type: String
+    },
+    isOnline: {
+      type: Boolean
+    },
     isVerified: {
       type: Boolean,
       default: false

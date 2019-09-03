@@ -1,0 +1,50 @@
+extends layouts/base.pug
+
+block content
+  .container.settings-form
+    form(method="PUT" name="settings" action="/")
+      .settings
+        section.personal-data
+          h3 Personal data
+          hr
+          .input-group
+            input(type="text" name="username").form-control
+            label username
+          .input-group
+            input(type="text" name="firstname").form-control
+            label firstname
+          .input-group
+            input(type="text" name="lastname").form-control
+            label lastname
+          .input-group
+            .avatar
+              i.material-icons person
+              label.label-file choose avatar 
+                input(type="file" name="avatar").form-control
+                i.material-icons add_photo_alternate
+          .input-group
+            input(type="text" name="city").form-control
+            label city
+          .input-group
+            input(type="text" name="country").form-control
+            label country
+          .input-group
+            select(name="gender")
+              option none
+              option male
+              option female
+            label please select
+          .input-group
+            textarea(name="about" rows="5" cols="30" placeholder="Tell us about yourself")
+            label.textarea-label about me
+        section.options
+          h3 Options 
+          hr
+          .input-group
+            input(type="email" name="email").form-control
+            label email
+          .more
+            p More
+            button.btn change password
+            button.btn.delete-btn delete account
+      input(type="submit" value="save").submit-btn.btn

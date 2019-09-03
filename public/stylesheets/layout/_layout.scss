@@ -1,4 +1,4 @@
-.nav {
+.main-nav {
   @include size(100%, 40px);
   display: flex;
   position: relative;
@@ -6,13 +6,36 @@
   align-items: center;
   background: $additional-color;
   box-shadow: 0px 1px 1px darken($additional-color, 20%);
+
   li {
     display: inline-block;
     margin: 0 rem(10);
   }
   .brand-logo {
     position: absolute;
+    display: flex;
+    width: 30px;
     left: rem(30);
+    .brand {
+      font-family: "Kameron', serif";
+      font-size: 20px;
+      color: whitesmoke;
+      margin: 5px;
+    }
+  }
+}
+
+.nav-bar {
+  @include size(100%, 50px);
+  display: flex;
+  position: relative;
+  justify-content: flex-end;
+  align-items: center;
+  background: $primary-color;
+  box-shadow: 0px 1px 1px darken($primary-color, 20%);
+
+  li {
+    margin: 0 15px;
   }
 }
 
@@ -20,6 +43,7 @@
   display: flex;
   justify-content: center;
 }
+
 .wrapper-column {
   display: flex;
   flex-direction: column;
@@ -27,7 +51,26 @@
 }
 
 .container {
+  min-height: 100%;
   max-width: 1280px;
   width: 90%;
   margin: 0 auto;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  background: $additional-color;
+  height: 60px;
+  color: white;
+
+  img {
+    width: 30px;
+  }
+
+  .footer-item {
+    margin: 15px;
+  }
 }

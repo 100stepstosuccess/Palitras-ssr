@@ -1,7 +1,11 @@
 header
-  nav.nav
-      a(href="/").brand-logo.link logo
-      ul#nav-mobile.right.hide-on-med-and-down
+  nav
+    .main-nav
+      a(href="/").brand-logo
+        img(src="/images/logo.svg", alt="logo")
+        p.brand Palitras
+        //- a(href="/").logo-text Palitra 
+      ul
         if userId
           li: a(href="/home").link Home
           li: form(method="post" action="/logout")
@@ -9,3 +13,9 @@ header
         else
           li: a(href="/login").btn Login
           li: a(href="/sign-up").btn Sign up
+    ul.nav-bar
+        li: a(href="/account/my-images").link My images
+        li: a(href="/account/add-picture").link Upload
+        li: a(href="/account/favorites").link Favorites
+        li: a(href="/account/following").link Following
+        li: a(href="/account/settings").link Settings
